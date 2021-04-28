@@ -1,0 +1,37 @@
+jobs:
+  create-logicapp-infra:
+    env:
+      AZURE_LOGICAPP_PACKAGE_PATH: .
+      DEPLOY_ENV: ${{ matrix.azureenv }}
+      DOTNET_VERSION: 3.1.301
+      RG_CON: GHConnections
+      RG_LA: GHApp
+    environment: sandbox
+    name: Create logicapp infra
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set the env variables according to env
+      run: 'echo ${{matrix.azureenv}}
+
+        echo $DEPLOY_ENV
+
+        echo "AZURE_APP_ENV_NAME=${AZURE_APP_NAME}${DEPLOY_ENV}" >> $GITHUB_ENV
+
+        '
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Create Logic App
+      run: "az logic workflow create --name \"testLogicApp\" \\\n--resource-group\
+        \ \"rg-by-workflow-shared-dev-eus2-01\" \\\n--location \"westus\" \\\n--definition\
+        \ \"testDefinition.json\" \n"
+    strategy:
+      matrix:
+        azureenv:
+        - sandbox
+name: Create azure infra for react/node apps
+'on':
+  push:
+    paths:
+    - .github/workflows/logicapp_workflow.yaml
