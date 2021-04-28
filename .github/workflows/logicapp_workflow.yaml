@@ -23,9 +23,19 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Create Logic App
-      run: "az extension add --name logic\naz config set extension.use_dynamic_install=yes_without_prompt\n\
-        az logic workflow create --name \"testLogicApp\" \\\n--resource-group \"rg-by-workflow-shared-dev-eus2-01\"\
-        \ \\\n--location \"eastus2\" \\\n--definition \"testDefinition.json\" \n"
+      run: 'az extension add --name logic
+
+        az config set extension.use_dynamic_install=yes_without_prompt
+
+        az logic workflow create --name "testLogicApp" \
+
+        --resource-group "rg-by-workflow-shared-dev-eus2-01" \
+
+        --location "eastus2" \
+
+        --definition "testDefinition.json"
+
+        '
     strategy:
       matrix:
         azureenv:
