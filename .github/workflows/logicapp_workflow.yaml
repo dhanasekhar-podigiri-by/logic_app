@@ -27,13 +27,13 @@ jobs:
 
         az config set extension.use_dynamic_install=yes_without_prompt
 
-        az logic workflow create --name "testLogicApp" \
+        az logic workflow create --name testLogicApp \
 
-        --resource-group "rg-by-workflow-shared-dev-eus2-01" \
+        --resource-group rg-by-workflow-shared-dev-eus2-01 \
 
-        --location "eastus2" \
+        --location eastus2 \
 
-        --definition "${{ github.workspace }}/testDefinition.json"
+        --definition ${{ github.workspace }}/testDefinition.json
 
         '
     strategy:
