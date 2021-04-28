@@ -2,70 +2,27 @@
     "definition": {
         "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
         "actions": {
-            "Send_an_email_(V2)": {
+            "Response": {
                 "inputs": {
-                    "body": {
-                        "Body": "<p>@{triggerBody()?['publishDate']}<br>\n@{triggerBody()?['title']}<br>\n@{triggerBody()?['primaryLink']}</p>",
-                        "Subject": "@triggerBody()?['title']",
-                        "To": "test@example.com"
-                    },
-                    "host": {
-                        "connection": {
-                            "name": "@parameters('$connections')['office365']['connectionId']"
-                        }
-                    },
-                    "method": "post",
-                    "path": "/v2/Mail"
+                    "body": "\"message\": \"Hello BlueYonder World!\"",
+                    "statusCode": 200
                 },
                 "runAfter": {},
-                "type": "ApiConnection"
+                "type": "Response"
             }
         },
         "contentVersion": "1.0.0.0",
         "outputs": {},
-        "parameters": {
-            "$connections": {
-                "defaultValue": {},
-                "type": "Object"
-            }
-        },
+        "parameters": {},
         "triggers": {
-            "When_a_feed_item_is_published": {
+            "request": {
                 "inputs": {
-                    "host": {
-                        "connection": {
-                            "name": "@parameters('$connections')['rss']['connectionId']"
-                        }
-                    },
-                    "method": "get",
-                    "path": "/OnNewFeed",
-                    "queries": {
-                        "feedUrl": "https://www.pbs.org/now/rss.xml"
-                    }
+                    "schema": {}
                 },
-                "recurrence": {
-                    "frequency": "Hour",
-                    "interval": 3
-                },
-                "splitOn": "@triggerBody()?['value']",
-                "type": "ApiConnection"
+                "kind": "Http",
+                "type": "Request"
             }
         }
     },
-    "parameters": {
-        "$connections": {
-            "value": {
-                "office365": {
-                    "connectionId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testResourceGroup/providers/Microsoft.Web/connections/office365",
-                    "connectionName": "office365",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Web/locations/westus/managedApis/office365"
-                },
-                "rss": {
-                    "connectionId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testResourceGroup/providers/Microsoft.Web/connections/rss",
-                    "connectionName": "rss",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Web/locations/westus/managedApis/rss"
-                }
-            }
-        }
-    }
+    "parameters": {}
 }
