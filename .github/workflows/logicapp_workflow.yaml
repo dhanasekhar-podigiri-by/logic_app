@@ -33,9 +33,7 @@ jobs:
 
         --location "eastus2" \
 
-        --definition "${{ github.workspace }}/testDefinition.json"
-
-        '
+        --definition "${{ github.workspace }}/testDefinition.json"'
     strategy:
       matrix:
         azureenv:
