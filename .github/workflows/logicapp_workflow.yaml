@@ -31,9 +31,7 @@ jobs:
 
         --resource-group "rg-by-workflow-shared-dev-eus2-01" \
 
-        --location "eastus2" \
-
-        --definition "testDefinition.json"
+        --location "eastus2"
 
         '
     strategy:
